@@ -126,8 +126,7 @@ resources/js/
 ### Docker
 ```
 ├── Dockerfile                      # Multi-stage build
-├── docker-compose.yml              # Produção
-├── docker-compose.dev.yml          # Desenvolvimento
+├── docker-compose.yml              # Produção e desenvolvimento
 ├── docker/
 │   ├── nginx.conf                 # Configuração Nginx
 │   └── start.sh                   # Script de inicialização
@@ -206,11 +205,8 @@ resources/js/
 git clone [url-do-repositorio]
 cd laravel-vue-test
 
-# Produção
+# Construir e iniciar
 docker-compose up -d --build
-
-# Desenvolvimento (com hot reload)
-docker-compose -f docker-compose.dev.yml up -d --build
 
 # Acessar aplicação
 # http://localhost:8000
@@ -283,8 +279,7 @@ curl http://localhost:8000/api/pokemon
 ### **Estrutura Docker**
 ```
 ├── Dockerfile                      # Multi-stage build
-├── docker-compose.yml              # Produção
-├── docker-compose.dev.yml          # Desenvolvimento
+├── docker-compose.yml              # Produção e desenvolvimento
 ├── docker/
 │   ├── nginx.conf                 # Configuração Nginx
 │   └── start.sh                   # Script de inicialização
@@ -297,7 +292,7 @@ curl http://localhost:8000/api/pokemon
 
 ### **Comandos Docker**
 
-#### **Produção**
+#### **Produção e Desenvolvimento**
 ```bash
 # Construir e iniciar
 docker-compose up -d --build
@@ -310,18 +305,6 @@ docker-compose down
 
 # Reconstruir
 docker-compose up -d --build --force-recreate
-```
-
-#### **Desenvolvimento**
-```bash
-# Construir e iniciar (com hot reload)
-docker-compose -f docker-compose.dev.yml up -d --build
-
-# Ver logs
-docker-compose -f docker-compose.dev.yml logs -f app
-
-# Parar serviços
-docker-compose -f docker-compose.dev.yml down
 ```
 
 #### **Comandos Úteis**
@@ -347,18 +330,15 @@ docker cp .env laravel-vue-test-app-1:/var/www/html/.env
 
 ### **Configurações Docker**
 
-#### **Produção (docker-compose.yml)**
+#### **Configuração Docker (docker-compose.yml)**
 - ✅ Multi-stage build otimizado
 - ✅ Nginx + PHP-FPM
 - ✅ Cache otimizado
 - ✅ Headers de segurança
 - ✅ Rate limiting
-
-#### **Desenvolvimento (docker-compose.dev.yml)**
-- ✅ Volumes para hot reload
+- ✅ Volumes para desenvolvimento
 - ✅ Debug habilitado
 - ✅ Logs detalhados
-- ✅ Desenvolvimento local
 
 ### **Otimizações Docker**
 - ✅ **Multi-stage build** - Reduz tamanho da imagem
@@ -653,17 +633,14 @@ docker-compose exec app php artisan view:clear
 npm run dev
 npm run build
 
-# Docker (desenvolvimento)
-docker-compose -f docker-compose.dev.yml up -d
+# Docker
+docker-compose up -d --build
 ```
 
 ### **Docker**
 ```bash
-# Produção
+# Produção e desenvolvimento
 docker-compose up -d --build
-
-# Desenvolvimento
-docker-compose -f docker-compose.dev.yml up -d --build
 
 # Logs
 docker-compose logs -f
