@@ -1,0 +1,35 @@
+services:
+  # Aplicação Laravel + Vue.js
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    environment:
+      - APP_ENV=local
+      - APP_KEY=base64:hNnIriMB02e2Iv5uRZYth2LHnnyAXlEH5EMWYzTqB3M=
+      - APP_DEBUG=false
+      - CACHE_STORE=file
+      - SESSION_DRIVER=file
+      - QUEUE_CONNECTION=sync
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    networks:
+      - laravel-network
+
+  # Redis para cache (opcional)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - laravel-network
+
+volumes:
+  redis_data:
+
+networks:
+  laravel-network:
+    driver: bridge
